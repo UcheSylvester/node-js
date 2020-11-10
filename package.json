@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/UcheSylvester/node-js/issues"
   },
-  "homepage": "https://github.com/UcheSylvester/node-js#readme"
+  "homepage": "https://github.com/UcheSylvester/node-js#readme",
+  "dependencies": {
+    "validator": "^13.1.17"
+  }
 }
