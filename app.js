@@ -1,10 +1,8 @@
-const chalk = require("chalk");
-const { string } = require("yargs");
 const yargs = require("yargs");
 
 const notesUtils = require("./notes");
 
-const { getNotes, addNote, removeNote } = notesUtils;
+const { getNotes, addNote, removeNote, listNotes } = notesUtils;
 
 yargs.version("1.1.0");
 
@@ -50,7 +48,7 @@ yargs.command({
   command: "list",
   describe: "list all notes",
   handler: (args) => {
-    console.log("listing notes");
+    listNotes();
   },
 });
 

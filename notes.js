@@ -1,5 +1,7 @@
 const fs = require("fs");
 
+const chalk = require("chalk");
+
 const getNotes = () => {
   return "Your notes...";
 };
@@ -10,20 +12,18 @@ const addNote = (title, body) => {
 
   const existingNote = isNoteExisting(title, notes);
 
-  if (existingNote) {
-    const modifiedNotes = notes.map((note) =>
-      note.title === title ? { title, body } : note
-    );
-
-    notes = modifiedNotes;
-  } else {
+  if (!existingNote) {
     notes.push({
       title,
       body,
     });
-  }
 
-  saveNotes(notes);
+    saveNotes(notes);
+
+    console.log(chalk.green("Notes added!"));
+  } else {
+    console.log(chalk.red("Note already exists"));
+  }
 };
 
 // REMOVE NOTE
@@ -43,9 +43,24 @@ const removeNote = (title) => {
     notes = modifiedNotes;
 
     saveNotes(notes);
+
+    console.log(chalk.green("Note removed successfully"));
   } else {
-    console.log("couldn't find note with the given title");
+    console.log(chalk.red("couldn't find note with the given title"));
   }
+};
+
+// LIST NOTES
+
+const listNotes = () => {
+  const notes = loadNotes();
+
+  if (!notes.length)
+    return console.log(chalk.red("You have not created any notes yet"));
+
+  console.log(chalk.blue("Your notes:"));
+
+  notes.forEach((note) => console.log(chalk.green(note.title)));
 };
 
 // UTILS
@@ -74,4 +89,4 @@ const loadNotes = () => {
   }
 };
 
-module.exports = { getNotes, addNote, removeNote };
+module.exports = { getNotes, addNote, removeNote, listNotes };
